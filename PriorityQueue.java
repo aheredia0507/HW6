@@ -1,7 +1,7 @@
 
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Arthur Heredia / COMP 272 002 F25
  *
  *   Note, additional comments provided throughout this source code
  *   is for educational purposes
@@ -147,13 +147,36 @@ class PriorityQueue<E, P> {
      * @param: P priority   - The priority for the newly added element
      * @return: Node        - Returns an object of type 'Node' representing the 
      *                        newly inserted element
+     *
+     * -----------------------------------------------------------------------------------------------------------------
+     *
+     * Pseudocode:
+     *
+     * 1. Create a new Node object with the given element (e) and its priority
+     * 2. Append the new Node to the end of the heap array
+     * 3. Assign the Node’s index to match its position in the array
+     * 4. Call pullUp(index) to restore the min-heap property
+     * 5. Return the new Node to the caller
+     *
      */
-
     public Node add(E e, P priority) {
 
-        // YOUR CODE GOES HERE
-        return null;
+        // Step 1: Create a new Node with the provided element and priority
+        Node newNode = new Node(e, priority, tree.size());
+
+        // Step 2: Append the Node to the end of the heap array
+        tree.add(newNode);
+
+        // Step 3: Use pullUp() to restore the min-heap property
+        // If the inserted node’s priority is smaller than its parent’s
+        // it will be “bubbled up” toward the root
+        pullUp(newNode.idx);
+
+        // Step 4: Return the Node so the invoker can reference it externally
+        return newNode;
+
     }
+
 
 
     /**
@@ -164,11 +187,32 @@ class PriorityQueue<E, P> {
      * type 'e' such that o.equals(e).
      *
      * @return: boolean - true if element in queue, else false.
+     *
+     * -----------------------------------------------------------------------------------------------------------------
+     *
+     * Pseudocode:
+     *
+     * 1. Iterate through all Nodes stored in the ArrayList 'tree'
+     * 2. For each Node, compare its stored value to the provided element 'e'
+     * 3. If a match is found (using equals()), return true immediately
+     * 4. If the entire heap is traversed with no match, return false
+     *
      */
 
     public boolean contains(E e) {
 
-        // ADD YOUR CODE HERE
+        // Step 1: Iterate through all nodes in the heap array
+        for (int i = 0; i < tree.size(); i++) {
+
+            // Step 2: Check if the current node's value equals the provided element
+            if (tree.get(i).value().equals(e)) {
+
+                // Step 3: Match found — element exists in the queue
+                return true;
+            }
+        }
+
+        // Step 4: If no match was found, return false
         return false;
     }
 
